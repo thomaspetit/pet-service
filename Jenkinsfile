@@ -16,6 +16,6 @@ node('maven') {
     openshiftVerifyDeployment depCfg: 'pet', replicaCount: 1, verifyReplicaCount: true
   }
   stage('System Test') {
-    sh "curl -s http://cart:8080/health | grep 'UP'"
+    sh "curl -s http://pet:8080/health | grep 'UP'"
   }
 }
