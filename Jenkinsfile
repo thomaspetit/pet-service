@@ -9,7 +9,7 @@ node('maven') {
   }
   stage('Build Image') {
     unstash name:"jar"
-    sh "oc start-build cart --from-file=target/*.jar --follow"
+    sh "oc start-build pet --from-file=target/PetStore-0.0.1-SNAPSHOT.jar --follow"
   }
   stage('Deploy') {
     openshiftDeploy depCfg: 'pet'
