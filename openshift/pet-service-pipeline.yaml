@@ -1,18 +1,17 @@
 apiVersion: v1
 kind: BuildConfig
 metadata:
-  name: exampleservice-pipeline-ci
+  name: pet-service-pipeline
   labels:
-    service: exampleservice
+    service: pet
     type: pipeline
-    scope: ci
   annotations:
-    pipeline.alpha.openshift.io/uses: '[{"name": "exampleservice", "namespace": "", "kind": "DeploymentConfig"}]'
+    pipeline.alpha.openshift.io/uses: '[{"name": "pet", "namespace": "", "kind": "DeploymentConfig"}]'
 spec:
   source:
     git:
       ref: master
-      uri: https://github.com/TPX01/example.k8s.service.git
+      uri: https://github.com/TPX01/pet-service.git
       type: Git
   strategy:
     type: JenkinsPipeline
