@@ -10,7 +10,7 @@ objects:
   metadata:
     name: pet
     labels:
-      application: pet
+      service: pet
   spec:
     tags:
     - name: latest
@@ -19,7 +19,7 @@ objects:
   metadata:
     name: pet
     labels:
-      application: pet
+      service: pet
   spec:
     output:
       to:
@@ -37,7 +37,7 @@ objects:
           value: ${MAVEN_MIRROR_URL}
         from:
           kind: ImageStreamTag
-          name: openjdk:8-jdk-alpine:latest
+          name: redhat-openjdk18-openshift:1.0
           namespace: ${IMAGE_STREAM_NAMESPACE}
       type: Source
     triggers:
@@ -47,7 +47,7 @@ objects:
   metadata:
     name: pet
     labels:
-      application: pet
+      service: pet
   spec:
     replicas: 1
     selector:
@@ -58,7 +58,7 @@ objects:
     template:
       metadata:
         labels:
-          application: pet
+          service: pet
           deploymentconfig: pet
         name: pet
       spec:
@@ -122,8 +122,8 @@ objects:
   kind: Service
   metadata:
     labels:
-      app: pet
-      application: pet
+      type: service
+      service: pet
     name: pet
   spec:
     ports:
@@ -136,7 +136,8 @@ objects:
   kind: Route
   metadata:
     labels:
-      application: pet
+      type: route
+      service: pet
     name: pet
   spec:
     to:
