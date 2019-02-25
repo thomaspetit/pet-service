@@ -2,14 +2,14 @@ node('maven') {
   stage('Build') {
     git url: "https://github.com/TPX01/pet-service.git"
     sh "mvn package"
-    stash name:"jar", includes:"target/PetService-0.0.1-SNAPSHOT.jar"
+    stash name:"jar", includes:"target/pet.jar"
   }
   stage('Test') {
     sh "mvn test"
   }
   stage('Build Image') {
     unstash name:"jar"
-    sh "oc start-build pet --from-file=target/PetService-0.0.1-SNAPSHOT.jar --follow"
+    sh "oc start-build pet --from-file=target/pet.jar --follow"
   }
   stage('Deploy') {
     openshiftDeploy depCfg: 'pet'
