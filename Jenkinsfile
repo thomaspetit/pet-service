@@ -15,7 +15,15 @@ node('maven') {
     openshiftDeploy depCfg: 'pet'
     openshiftVerifyDeployment depCfg: 'pet', replicaCount: 1, verifyReplicaCount: true
   }
-  stage('System Test') {
-    sh "curl -s http://pet:8080/health | grep 'UP'"
+
+  stage('Deploy DEV') {
+  }
+
+  stage('Promote to STG') {
+    steps {
+        timeout(time:15, unit:'MINUTES') {
+            input message: "Promote to STG?", ok: "Promote"
+        }
+    }
   }
 }
