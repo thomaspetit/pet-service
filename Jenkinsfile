@@ -43,10 +43,10 @@ pipeline {
         stage('Build Image') {
             steps {
                 unstash name:"jar"
-                sh "oc get bc"
+                sh "cp target/${IMAGE}.jar target/ROOT.jar"
                 script {
                     openshift.withCluster() {
-                        openshift.selector("bc", "${IMAGE}").startBuild("--from-file=target/${IMAGE}.jar", "--wait")
+                        openshift.selector("bc", "${IMAGE}").startBuild("--from-file=target/ROOT.jar", "--wait")
                     }
                 }
             }
